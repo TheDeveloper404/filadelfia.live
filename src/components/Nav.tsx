@@ -55,7 +55,7 @@ export default function Nav() {
             <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-sm">
               <ChurchIcon className="h-7 w-7" />
             </span>
-            <span className="hidden sm:block">{siteConfig.churchName}</span>
+            <span className="text-lg sm:text-3xl">{siteConfig.churchName}</span>
           </Link>
 
           {/* Desktop nav */}

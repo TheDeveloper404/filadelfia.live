@@ -19,17 +19,17 @@ const socialIcons = {
 export default function Footer() {
   return (
     <footer className="bg-slate-900 text-slate-400">
-      <Container className="grid gap-8 py-8 md:grid-cols-3">
+      <Container className="grid gap-10 py-12 md:grid-cols-3 md:gap-8 md:py-8">
 
         {/* Brand */}
-        <div className="flex flex-col gap-3">
-          <Link to="/" className="flex items-center gap-3 text-2xl font-bold text-white">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow">
+        <div className="flex flex-col items-center gap-3 md:items-start">
+          <Link to="/" className="flex items-center gap-3 text-xl font-bold text-white hover:text-white">
+            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow">
               <ChurchIcon className="h-6 w-6" />
             </span>
-            {siteConfig.churchName}
+            <span className="leading-tight">{siteConfig.churchName}</span>
           </Link>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap justify-center gap-2 md:justify-start">
             {Object.entries(siteConfig.social).map(([key, url]) =>
               url ? (
                 <a
@@ -74,9 +74,9 @@ export default function Footer() {
         </div>
 
         {/* Contact */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col items-center gap-3 md:items-start">
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-slate-500">Contact</p>
-          <div className="space-y-2 text-sm text-slate-300">
+          <div className="space-y-2 text-sm text-slate-300 text-center md:text-left">
             {siteConfig.contact.address && (
               <p className="flex items-start gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-secondary">

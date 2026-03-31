@@ -45,13 +45,14 @@ export default function HomePage() {
 
   useEffect(() => {
     dbRead<CustomEvent[]>('events').then(remote => {
-      if (remote) {
-        setCustomEvents(remote);
-        localStorage.setItem(EVENTS_KEY, JSON.stringify(remote));
+      if (remote !== undefined) {
+        const list = Array.isArray(remote) ? remote : [];
+        setCustomEvents(list);
+        localStorage.setItem(EVENTS_KEY, JSON.stringify(list));
       }
     });
     dbRead<typeof schedule.services>('schedule').then(remote => {
-      if (remote && Array.isArray(remote) && remote.length > 0) {
+      if (remote !== undefined && Array.isArray(remote) && remote.length > 0) {
         setServices(remote);
         localStorage.setItem(SCHEDULE_KEY, JSON.stringify(remote));
       }

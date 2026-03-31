@@ -6,14 +6,16 @@
 
 const BASE = import.meta.env.VITE_FIREBASE_DB_URL as string | undefined;
 
-export async function dbRead<T>(path: string): Promise<T | null> {
-  if (!BASE) return null;
+// Returns T | null when Firebase responded (null = node deleted/empty)
+// Returns undefined on network error or when Firebase is not configured
+export async function dbRead<T>(path: string): Promise<T | null | undefined> {
+  if (!BASE) return undefined;
   try {
     const res = await fetch(`${BASE}/${path}.json`);
-    if (!res.ok) return null;
-    return (await res.json()) as T;
+    if (!res.ok) return undefined;
+    return (await res.json()) as T | null;
   } catch {
-    return null;
+    return undefined;
   }
 }
 

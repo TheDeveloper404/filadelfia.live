@@ -19,9 +19,10 @@ export default function NewsTicker() {
 
   useEffect(() => {
     dbRead<TickerConfig>('ticker').then(remote => {
-      if (remote !== null) {
-        setConfig(remote);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(remote));
+      if (remote !== undefined) {
+        const val = remote ?? { enabled: false, text: '' };
+        setConfig(val);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(val));
       }
     });
   }, []);

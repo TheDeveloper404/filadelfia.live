@@ -251,9 +251,10 @@ export default function AdminPage() {
     if (!unlocked) return;
 
     dbRead<TickerConfig>('ticker').then(remote => {
-      if (remote) {
-        setTicker(remote);
-        localStorage.setItem(TICKER_KEY, JSON.stringify(remote));
+      if (remote !== undefined) {
+        const val = remote ?? { enabled: false, text: '' };
+        setTicker(val);
+        localStorage.setItem(TICKER_KEY, JSON.stringify(val));
       } else {
         const stored = localStorage.getItem(TICKER_KEY);
         if (stored) { try { setTicker(JSON.parse(stored)); } catch {} }
@@ -261,9 +262,10 @@ export default function AdminPage() {
     });
 
     dbRead<CustomEvent[]>('events').then(remote => {
-      if (remote) {
-        setEvents(remote);
-        localStorage.setItem(EVENTS_KEY, JSON.stringify(remote));
+      if (remote !== undefined) {
+        const list = Array.isArray(remote) ? remote : [];
+        setEvents(list);
+        localStorage.setItem(EVENTS_KEY, JSON.stringify(list));
       } else {
         const stored = localStorage.getItem(EVENTS_KEY);
         if (stored) { try { setEvents(JSON.parse(stored)); } catch {} }
@@ -271,7 +273,7 @@ export default function AdminPage() {
     });
 
     dbRead<ScheduleService[]>('schedule').then(remote => {
-      if (remote && Array.isArray(remote) && remote.length > 0) {
+      if (remote !== undefined && Array.isArray(remote) && remote.length > 0) {
         setServices(remote);
         localStorage.setItem(SCHEDULE_KEY, JSON.stringify(remote));
       } else {

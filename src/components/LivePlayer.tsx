@@ -45,25 +45,26 @@ export default function LivePlayer({ autoplay = false }: LivePlayerProps) {
     );
   }
 
+  // Uploads playlist: replace UC → UU in channelId
+  const uploadsPlaylist = channelId.replace(/^UC/, 'UU');
+  const latestSrc = `https://www.youtube.com/embed?listType=playlist&list=${uploadsPlaylist}&rel=0&modestbranding=1`;
+
   return (
-    <div className="rounded-3xl bg-white p-8 text-center shadow-lg">
-      <div className="mx-auto mb-5 inline-flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 text-slate-400">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-7 w-7">
-          <path d="M4 6.75A2.75 2.75 0 0 1 6.75 4h10.5A2.75 2.75 0 0 1 20 6.75v10.5A2.75 2.75 0 0 1 17.25 20H6.75A2.75 2.75 0 0 1 4 17.25V6.75zm2.75-.25c-.69 0-1.25.56-1.25 1.25v10.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25V6.75c0-.69-.56-1.25-1.25-1.25H6.75zM9.5 9.25l5 2.75-5 2.75V9.25z"/>
-        </svg>
+    <div className="space-y-5">
+      <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">
+        <span className="h-2.5 w-2.5 rounded-full bg-slate-300 shrink-0" />
+        <p className="text-sm font-semibold text-slate-600">Nu se transmite live în acest moment</p>
       </div>
-      <h2 className="mb-3 text-2xl font-semibold text-slate-900">Momentan nu este transmisie live</h2>
-      <p className="mx-auto max-w-xl text-sm leading-6 text-slate-500">
-        Transmisiile au loc <strong>duminica dimineața și seara</strong> și <strong>joi seara</strong>. Abonează-te pe YouTube pentru notificări.
-      </p>
-      <a
-        href={siteConfig.youtube.channelUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-6 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
-      >
-        Abonează-te pe YouTube
-      </a>
+      <div className="aspect-video overflow-hidden rounded-3xl bg-slate-950">
+        <iframe
+          className="h-full w-full"
+          src={latestSrc}
+          title="Ultimul program"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          loading="lazy"
+        />
+      </div>
     </div>
   );
 }

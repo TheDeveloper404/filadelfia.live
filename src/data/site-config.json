@@ -24,18 +24,18 @@
   "serviceWindows": {
     "sundayMorning": {
       "dayOfWeek": 0,
-      "startHour": 9,
-      "endHour": 13
+      "startHour": 10,
+      "endHour": 12
     },
     "sundayEvening": {
       "dayOfWeek": 0,
       "startHour": 18,
-      "endHour": 21
+      "endHour": 20
     },
     "thursday": {
       "dayOfWeek": 4,
       "startHour": 18,
-      "endHour": 21
+      "endHour": 20
     }
   }
 }

@@ -6,22 +6,27 @@ const WELCOME_KEY = 'filadelfia_welcome_shown';
 
 export default function WelcomeModal() {
   const [visible, setVisible] = useState(false);
+  const [fading, setFading] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem(WELCOME_KEY)) {
       setVisible(true);
+      const fadeTimer = setTimeout(() => setFading(true), 2200);
+      const hideTimer = setTimeout(() => {
+        localStorage.setItem(WELCOME_KEY, '1');
+        setVisible(false);
+      }, 2800);
+      return () => { clearTimeout(fadeTimer); clearTimeout(hideTimer); };
     }
   }, []);
-
-  const dismiss = () => {
-    localStorage.setItem(WELCOME_KEY, '1');
-    setVisible(false);
-  };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/95 backdrop-blur-md">
+    <div
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/95 backdrop-blur-md transition-opacity duration-600"
+      style={{ opacity: fading ? 0 : 1 }}
+    >
       <div className="mx-4 flex flex-col items-center text-center max-w-lg">
         <span className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-secondary/20 border border-secondary/30 mb-6">
           <ChurchIcon className="h-10 w-10 text-secondary" />
@@ -35,16 +40,9 @@ export default function WelcomeModal() {
           {siteConfig.churchName}
         </h1>
 
-        <p className="text-lg text-slate-300 leading-relaxed mb-10">
+        <p className="text-lg text-slate-300 leading-relaxed">
           {siteConfig.tagline}
         </p>
-
-        <button
-          onClick={dismiss}
-          className="rounded-full bg-secondary px-10 py-3.5 text-base font-bold text-secondary-foreground transition hover:bg-secondary/90 shadow-lg shadow-secondary/20"
-        >
-          Descoperă
-        </button>
       </div>
     </div>
   );

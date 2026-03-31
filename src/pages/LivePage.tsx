@@ -31,7 +31,7 @@ export default function LivePage() {
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
             <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
               <p className="text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Transmisie</p>
-              <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Live</h2>
+              <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Ultimul program înregistrat</h2>
             </div>
             <div className="p-4 sm:p-10">
               <LivePlayer autoplay />

@@ -213,6 +213,39 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+
+      {/* ── Misiunea Noastră ── */}
+      <section className="py-20 sm:py-28 bg-slate-900 text-white">
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">Cine suntem</p>
+            <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Misiunea Noastră</h2>
+
+            <div className="mt-8 space-y-5 text-lg leading-8 text-slate-300">
+              <p>
+                Misiunea Bisericii Filadelfia este să-L onoreze pe Dumnezeu prin creșterea unor oameni transformați,
+                care trăiesc după modelul lui Cristos în fiecare aspect al vieții. Ne ghidăm după chemarea lui Isus
+                din Matei 28:19-20, asumându-ne responsabilitatea de a ajuta oamenii să devină ucenici, să își declare
+                credința prin botez și să trăiască în ascultare de învățătura Lui.
+              </p>
+              <p>
+                Ne dorim să construim o comunitate autentică, în care dragostea, maturitatea spirituală și generozitatea
+                nu sunt doar valori declarate, ci realități trăite, astfel încât gloria lui Dumnezeu să fie vizibilă
+                atât în biserică, cât și în afara ei.
+              </p>
+            </div>
+
+            <blockquote className="mt-12 rounded-2xl border border-secondary/20 bg-secondary/8 px-6 py-8 sm:px-10">
+              <p className="text-base leading-8 text-slate-200 italic">
+                „Prin urmare, duceți-vă și faceți ucenici din toate neamurile, botezându-i în Numele Tatălui,
+                al Fiului și al Duhului Sfânt și învățându-i să păzească tot ce v-am poruncit! Și iată că Eu
+                sunt cu voi în toate zilele, până la sfârșitul veacului!"
+              </p>
+              <footer className="mt-4 text-sm font-bold tracking-wide text-secondary">Matei 28:19-20</footer>
+            </blockquote>
+          </div>
+        </Container>
+      </section>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import Container from '@/components/ui/container';
 import ChurchIcon from '@/components/ui/ChurchIcon';
 import siteConfig from '@/data/site-config.json';
@@ -17,6 +18,8 @@ const socialIcons = {
 };
 
 export default function Footer() {
+  const [showEgg, setShowEgg] = useState(false);
+
   return (
     <footer className="bg-slate-900 text-slate-400">
       <Container className="grid gap-10 py-12 md:grid-cols-3 md:gap-8 md:py-8">
@@ -92,7 +95,17 @@ export default function Footer() {
 
       <div className="border-t border-white/8 py-4">
         <Container className="text-center text-xs text-slate-600">
-          &copy; {new Date().getFullYear()} {siteConfig.churchName}. Toate drepturile rezervate.
+          <span
+            onClick={() => setShowEgg(e => !e)}
+            className="cursor-default select-none"
+          >
+            &copy; {new Date().getFullYear()} {siteConfig.churchName}. Toate drepturile rezervate.
+          </span>
+          {showEgg && (
+            <span className="ml-2 text-slate-500 transition-opacity">
+              · Powered by <span className="text-secondary font-semibold">ACL Smart Software</span>
+            </span>
+          )}
         </Container>
       </div>
     </footer>

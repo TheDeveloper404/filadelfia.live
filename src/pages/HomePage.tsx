@@ -56,12 +56,12 @@ export default function HomePage() {
         </div>
 
         <div
-          className="pointer-events-none absolute inset-y-0 right-0 z-0 w-2/3"
+          className="pointer-events-none absolute inset-0 z-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-2/3"
           style={{
             backgroundImage: 'url(/image_bg.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.2,
+            opacity: 0.15,
             maskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
             WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
           }}

@@ -48,7 +48,7 @@ export default function Layout({ children }: LayoutProps) {
       </a>
       <Nav />
       <NewsTicker />
-      <main key={location.key} id="main-content" className="page-enter flex-1">
+      <main key={location.key} id="main-content" className="page-enter flex-1 -mt-[52px]">
         {children}
       </main>
       <Footer />

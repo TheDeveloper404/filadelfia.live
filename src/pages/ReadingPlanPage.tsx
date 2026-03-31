@@ -30,7 +30,7 @@ export default function ReadingPlanPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-slate-900 py-20 text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/3 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
+          <div className="hidden sm:block absolute left-1/3 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
         </div>
         <Container className="relative space-y-4">
           <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
@@ -51,7 +51,7 @@ export default function ReadingPlanPage() {
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             {/* Card header — today's reading */}
-            <div className="px-10 py-10 text-center">
+            <div className="px-4 py-6 sm:px-10 sm:py-10 text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Citire zilnică · {todayLabel}</p>
               <p className="mt-4 text-5xl font-bold text-slate-900">
                 {todayReading ? (todayReading as any).reading : '—'}
@@ -75,7 +75,7 @@ export default function ReadingPlanPage() {
             </div>
 
             {/* Card body — all days scrollable */}
-            <div className="px-10 pb-10">
+            <div className="px-4 pb-6 sm:px-10 sm:pb-10">
               <div ref={listRef} className="mx-auto max-w-2xl max-h-[420px] overflow-y-auto space-y-2 pr-1">
                 {plan.readings.map((row, index) => {
                   const isToday = index === dayIndex;

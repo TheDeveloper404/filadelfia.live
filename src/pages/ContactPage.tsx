@@ -11,7 +11,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-slate-900 py-20 text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-1/3 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
+          <div className="hidden sm:block absolute right-1/3 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
         </div>
         <Container className="relative space-y-4">
           <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
@@ -29,7 +29,7 @@ export default function ContactPage() {
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             {/* Card header */}
-            <div className="border-b border-slate-100 px-10 py-8 text-center">
+            <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Hai să ne cunoaștem</p>
               <h2 className="mt-2 text-3xl font-bold text-slate-900">Informații & Locație</h2>
             </div>
@@ -38,7 +38,7 @@ export default function ContactPage() {
             <div className="grid divide-x divide-slate-100 lg:grid-cols-2">
 
               {/* LEFT — Contact info */}
-              <div className="p-10 space-y-8">
+              <div className="p-4 sm:p-10 space-y-8">
 
                 {/* Address */}
                 <div>
@@ -98,7 +98,7 @@ export default function ContactPage() {
               </div>
 
               {/* RIGHT — Map */}
-              <div className="p-10">
+              <div className="p-4 sm:p-10">
                 <p className="mb-3 text-xs font-bold uppercase tracking-[0.3em] text-slate-700 text-center">Harta locației</p>
                 {siteConfig.contact.mapEmbedUrl ? (
                   <div className="overflow-hidden rounded-2xl border border-slate-200">
@@ -106,7 +106,7 @@ export default function ContactPage() {
                       src={siteConfig.contact.mapEmbedUrl}
                       title="Locație pe hartă"
                       width="100%"
-                      height="420"
+                      className="h-48 sm:h-[420px]"
                       style={{ border: 0 }}
                       loading="lazy"
                     />

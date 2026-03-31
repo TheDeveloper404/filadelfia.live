@@ -61,7 +61,7 @@ export default function StiriPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-slate-900 py-24 text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-secondary/8 blur-[100px]" />
+          <div className="hidden sm:block absolute left-1/2 top-0 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-secondary/8 blur-[100px]" />
         </div>
         <Container className="relative text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">
@@ -82,12 +82,12 @@ export default function StiriPage() {
         <Container>
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
-            <div className="border-b border-slate-100 px-10 py-8 text-center">
+            <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Selectate pentru tine</p>
               <h2 className="mt-2 text-3xl font-bold text-slate-900">Știri recente</h2>
             </div>
 
-            <div className="p-10">
+            <div className="p-4 sm:p-10">
               {loading && (
                 <div className="flex items-center justify-center py-16">
                   <div className="h-8 w-8 animate-spin rounded-full border-4 border-secondary border-t-transparent" />

@@ -18,6 +18,7 @@ const navLinksAfter = [
 export default function Nav() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
@@ -26,8 +27,12 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => { setMenuOpen(false); }, [location.pathname]);
+
   const handleArchiveClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    setMenuOpen(false);
     setShowPopup(true);
   };
 
@@ -53,14 +58,15 @@ export default function Nav() {
             <span className="hidden sm:block">{siteConfig.churchName}</span>
           </Link>
 
-          <nav className="flex items-center gap-1">
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-1">
             {navLinks.map(link => {
               const active = location.pathname === link.to;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`nav-link px-8 py-4.5 text-base font-medium transition-colors duration-200 ${
+                  className={`nav-link px-4 py-3 text-base font-medium transition-colors duration-200 ${
                     active ? 'nav-active text-white' : 'text-slate-300 hover:text-white'
                   }`}
                 >
@@ -69,11 +75,10 @@ export default function Nav() {
               );
             })}
 
-            {/* Arhivă — după Live */}
             <a
               href="#"
               onClick={handleArchiveClick}
-              className="nav-link px-8 py-4.5 text-base font-medium transition-colors duration-200 text-slate-300 hover:text-white"
+              className="nav-link px-4 py-3 text-base font-medium transition-colors duration-200 text-slate-300 hover:text-white"
             >
               Arhivă
             </a>
@@ -84,7 +89,7 @@ export default function Nav() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`nav-link px-8 py-4.5 text-base font-medium transition-colors duration-200 ${
+                  className={`nav-link px-4 py-3 text-base font-medium transition-colors duration-200 ${
                     active ? 'nav-active text-white' : 'text-slate-300 hover:text-white'
                   }`}
                 >
@@ -93,7 +98,67 @@ export default function Nav() {
               );
             })}
           </nav>
+
+          {/* Hamburger button — mobile only */}
+          <button
+            className="flex md:hidden items-center justify-center h-10 w-10 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition"
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label={menuOpen ? 'Închide meniu' : 'Deschide meniu'}
+          >
+            {menuOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
         </Container>
+
+        {/* Mobile menu dropdown */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-white/10 bg-slate-900/98 backdrop-blur-xl">
+            <nav className="flex flex-col px-4 py-3">
+              {navLinks.map(link => {
+                const active = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                      active ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+              <a
+                href="#"
+                onClick={handleArchiveClick}
+                className="rounded-lg px-4 py-3 text-base font-medium text-slate-300 hover:bg-white/5 hover:text-white transition-colors"
+              >
+                Arhivă
+              </a>
+              {navLinksAfter.map(link => {
+                const active = location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`rounded-lg px-4 py-3 text-base font-medium transition-colors ${
+                      active ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-white/5 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Popup confirmare */}

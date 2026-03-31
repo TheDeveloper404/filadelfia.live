@@ -15,7 +15,7 @@ export default function LivePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-slate-900 py-20 text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
+          <div className="hidden sm:block absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
         </div>
         <Container className="relative space-y-4">
           <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
@@ -35,7 +35,7 @@ export default function LivePage() {
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             {/* Card header */}
-            <div className="border-b border-slate-100 px-10 py-8 text-center">
+            <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Transmisie</p>
               <h2 className="mt-2 text-3xl font-bold text-slate-900">Live & Program</h2>
             </div>
@@ -44,12 +44,12 @@ export default function LivePage() {
             <div className="grid divide-x divide-slate-100 lg:grid-cols-[1.5fr_0.5fr]">
 
               {/* LEFT — Player */}
-              <div className="p-10">
+              <div className="p-4 sm:p-10">
                 <LivePlayer autoplay />
               </div>
 
               {/* RIGHT — Schedule */}
-              <div className="p-10 space-y-6">
+              <div className="p-4 sm:p-10 space-y-6">
                 <p className="text-xs font-bold uppercase tracking-[0.3em] text-slate-700 text-center">Programul serviciilor</p>
                 <div className="space-y-4">
                   {groups.map(group => (

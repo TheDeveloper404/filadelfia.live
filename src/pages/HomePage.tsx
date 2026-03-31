@@ -51,8 +51,8 @@ export default function HomePage() {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden bg-slate-900 text-white min-h-screen">
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[600px] w-[900px] rounded-full bg-secondary/8 blur-[120px]" />
-          <div className="absolute right-0 bottom-0 h-[400px] w-[500px] rounded-full bg-primary/20 blur-[100px]" />
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 h-[300px] w-[400px] rounded-full bg-secondary/8 blur-[80px] sm:h-[600px] sm:w-[900px] sm:blur-[120px]" />
+          <div className="hidden sm:block absolute right-0 bottom-0 h-[400px] w-[500px] rounded-full bg-primary/20 blur-[100px]" />
         </div>
 
         <div
@@ -100,13 +100,13 @@ export default function HomePage() {
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             {/* Card header */}
-            <div className="border-b border-slate-100 px-10 py-8 text-center">
+            <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
               <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Vino alături de noi</p>
               <h2 className="mt-2 text-3xl font-bold text-slate-900">Program & Comunitate</h2>
             </div>
 
             {/* Program săptămânal — horizontal strip */}
-            <div className="border-b border-slate-100 px-10 py-7">
+            <div className="border-b border-slate-100 px-4 py-5 sm:px-10 sm:py-7">
               <p className="mb-5 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-700">
                 Program săptămânal
               </p>
@@ -144,7 +144,7 @@ export default function HomePage() {
             <div className="grid divide-x divide-slate-100 lg:grid-cols-2">
 
               {/* LEFT — Events */}
-              <div className="p-10">
+              <div className="p-4 sm:p-10">
                 <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-700">
                   Evenimente
                 </p>
@@ -163,7 +163,7 @@ export default function HomePage() {
               </div>
 
               {/* RIGHT — Calendar */}
-              <div className="p-10">
+              <div className="p-4 sm:p-10">
                 <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-700">
                   Calendar
                 </p>

@@ -55,13 +55,24 @@ export default function HomePage() {
           <div className="hidden sm:block absolute right-0 bottom-0 h-[400px] w-[500px] rounded-full bg-primary/20 blur-[100px]" />
         </div>
 
+        {/* Mobile — full cover, no mask, cross visible */}
         <div
-          className="pointer-events-none absolute inset-0 z-0 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-2/3"
+          className="pointer-events-none absolute inset-0 z-0 sm:hidden"
           style={{
             backgroundImage: 'url(/image_bg.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            opacity: 0.15,
+            opacity: 0.25,
+          }}
+        />
+        {/* Desktop — right side with gradient mask */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-2/3 sm:block"
+          style={{
+            backgroundImage: 'url(/image_bg.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.2,
             maskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
             WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 50%)',
           }}

@@ -121,9 +121,7 @@ export default function Nav() {
           style={{
             maxHeight: menuOpen ? '400px' : '0px',
             opacity: menuOpen ? 1 : 0,
-            background: 'rgba(15, 23, 42, 0.85)',
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
+            background: 'rgba(15, 23, 42, 0.95)',
             borderTop: menuOpen ? '1px solid rgba(255,255,255,0.08)' : 'none',
           }}
         >

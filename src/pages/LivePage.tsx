@@ -8,33 +8,40 @@ export default function LivePage() {
       <PageMeta title="Live — Biserica Filadelfia" description="Urmărește transmisia noastră live." />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-slate-900 py-20 text-white">
+      <section className="relative overflow-hidden bg-slate-900 py-24 text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="hidden sm:block absolute left-1/4 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
+          <div className="hidden sm:block absolute left-1/2 top-0 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-secondary/8 blur-[100px]" />
         </div>
-        <Container className="relative space-y-4">
-          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-            Transmisie live
-          </h1>
-          <p className="max-w-lg text-xl leading-8 text-slate-300">
+        <Container className="relative text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Transmisie în direct</p>
+          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">Live</h1>
+          <p className="mx-auto mt-4 max-w-lg text-xl leading-8 text-slate-300">
             Urmărește predicile noastre în direct.
           </p>
         </Container>
       </section>
 
       {/* ── Player ── */}
-      <section className="py-20 sm:py-24 bg-[#d4ab84]">
+      <section className="relative py-20 sm:py-24 bg-[#d4ab84]">
+        <div
+          className="pointer-events-none absolute top-0 inset-x-0 h-20 z-10"
+          style={{ background: 'linear-gradient(to bottom, rgba(15,23,42,1) 0%, rgba(15,23,42,0.35) 50%, transparent 100%)' }}
+        />
         <Container>
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
             <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Transmisie</p>
-              <h2 className="mt-2 text-3xl font-bold text-slate-900">Live</h2>
+              <p className="text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Transmisie</p>
+              <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Live</h2>
             </div>
             <div className="p-4 sm:p-10">
               <LivePlayer autoplay />
             </div>
           </div>
         </Container>
+        <div
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-20"
+          style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(15,23,42,0.35) 60%, rgba(15,23,42,1) 100%)' }}
+        />
       </section>
     </div>
   );

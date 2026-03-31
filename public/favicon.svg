@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <!-- Background circle -->
-  <circle cx="32" cy="32" r="32" fill="#f59e0b"/>
+  <circle cx="32" cy="32" r="32" fill="#d4ab84"/>
 
   <!-- Church icon (scaled/translated to fit circle) -->
   <g fill="#1b3a6b" transform="translate(8, 4) scale(0.75)">

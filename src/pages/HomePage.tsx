@@ -108,7 +108,7 @@ export default function HomePage() {
 
         <Container className="relative py-32 md:py-40">
           <div className="flex flex-col items-center text-center">
-            <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-6xl md:text-7xl">
+            <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-6xl md:text-7xl" style={{ color: '#d4ab84' }}>
               <span className="block">Biserica Penticostală Filadelfia</span>
               <span className="mt-2 block text-2xl font-light tracking-[0.2em] text-slate-400 sm:text-4xl">— Petroșani —</span>
             </h1>
@@ -131,22 +131,27 @@ export default function HomePage() {
             </div>
           </div>
         </Container>
+
       </section>
 
       {/* ── Schedule + Events + Calendar ── */}
-      <section className="py-20 sm:py-24 bg-[#d4ab84]">
+      <section className="relative py-20 sm:py-24 bg-[#d4ab84]">
+        <div
+          className="pointer-events-none absolute top-0 inset-x-0 h-20 z-10"
+          style={{ background: 'linear-gradient(to bottom, rgba(15,23,42,1) 0%, rgba(15,23,42,0.35) 50%, transparent 100%)' }}
+        />
         <Container>
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             {/* Card header */}
             <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Vino alături de noi</p>
-              <h2 className="mt-2 text-3xl font-bold text-slate-900">Program & Comunitate</h2>
+              <p className="text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Vino alături de noi</p>
+              <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Program & Comunitate</h2>
             </div>
 
             {/* Program săptămânal — horizontal strip */}
             <div className="border-b border-slate-100 px-4 py-5 sm:px-10 sm:py-7">
-              <p className="mb-5 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-700">
+              <p className="mb-5 text-center text-base font-bold uppercase tracking-[0.3em] text-slate-700">
                 Program săptămânal
               </p>
               <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
@@ -184,7 +189,7 @@ export default function HomePage() {
 
               {/* LEFT — Events */}
               <div className="p-4 sm:p-10">
-                <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-700">
+                <p className="mb-4 text-center text-base font-bold uppercase tracking-[0.3em] text-slate-700">
                   Evenimente
                 </p>
                 {upcomingEvents.length > 0 ? (
@@ -203,7 +208,7 @@ export default function HomePage() {
 
               {/* RIGHT — Calendar */}
               <div className="p-4 sm:p-10">
-                <p className="mb-4 text-center text-xs font-bold uppercase tracking-[0.3em] text-slate-700">
+                <p className="mb-4 text-center text-base font-bold uppercase tracking-[0.3em] text-slate-700">
                   Calendar
                 </p>
                 <MiniCalendar events={allEvents} holidays={holidays} />
@@ -215,11 +220,11 @@ export default function HomePage() {
       </section>
 
       {/* ── Misiunea Noastră ── */}
-      <section className="py-20 sm:py-28 bg-[#d4ab84]">
+      <section className="relative py-20 sm:py-28 bg-[#d4ab84]">
         <Container>
           <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-700">Cine suntem</p>
-            <h2 className="mt-3 text-3xl font-bold sm:text-4xl text-slate-900">Misiunea Noastră</h2>
+            <p className="text-base font-semibold uppercase tracking-[0.3em] text-slate-700">Cine suntem</p>
+            <h2 className="mt-3 text-4xl font-bold sm:text-5xl text-slate-900">Misiunea Noastră</h2>
 
             <div className="mt-8 space-y-5 text-lg leading-8 text-slate-800">
               <p>
@@ -245,6 +250,12 @@ export default function HomePage() {
             </blockquote>
           </div>
         </Container>
+
+        {/* gradient fade into footer */}
+        <div
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-20"
+          style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(15,23,42,0.35) 60%, rgba(15,23,42,1) 100%)' }}
+        />
       </section>
     </div>
   );

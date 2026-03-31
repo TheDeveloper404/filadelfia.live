@@ -15,7 +15,7 @@ export default function Footer() {
         <Container className="py-14 grid gap-0 md:grid-cols-[1fr_1px_1fr_1px_1fr]">
 
           {/* Col 1 — Brand */}
-          <div className="flex flex-col gap-4 pr-0 md:pr-10">
+          <div className="flex flex-col items-center md:items-start gap-4 pr-0 md:pr-10 text-center md:text-left">
             <Link to="/" className="flex items-center gap-3 text-white hover:text-white w-fit">
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-sm">
                 <ChurchIcon className="h-7 w-7" />

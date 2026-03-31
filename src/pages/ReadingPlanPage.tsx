@@ -28,31 +28,31 @@ export default function ReadingPlanPage() {
       <PageMeta title="Plan de citire — Filadelfia" description="Plan anual de citire biblică pentru ziua de astăzi și următoarele zile." />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-slate-900 py-20 text-white">
+      <section className="relative overflow-hidden bg-slate-900 py-24 text-white">
         <div className="pointer-events-none absolute inset-0">
-          <div className="hidden sm:block absolute left-1/3 top-0 h-[400px] w-[600px] rounded-full bg-secondary/8 blur-[100px]" />
+          <div className="hidden sm:block absolute left-1/2 top-0 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-secondary/8 blur-[100px]" />
         </div>
-        <Container className="relative space-y-4">
-          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">
-{plan.planName}
-          </h1>
-          <p className="max-w-xl text-xl leading-8 text-slate-300">
+        <Container className="relative text-center">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Lectură zilnică</p>
+          <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl">{plan.planName}</h1>
+          <p className="mx-auto mt-4 max-w-xl text-xl leading-8 text-slate-300">
             Citește Biblia și vei deveni mai înțelept, crede-o ca să fii în siguranță și aplică-o, ca să trăiești o viață adevărată!
-          </p>
-          <p className="max-w-xl text-base leading-7 text-slate-400">
-            Urmați planul zilnic pentru a parcurge întreaga Biblie într-un an.
           </p>
         </Container>
       </section>
 
       {/* ── Plan ── */}
-      <section className="py-20 sm:py-24 bg-[#d4ab84]">
+      <section className="relative py-20 sm:py-24 bg-[#d4ab84]">
+        <div
+          className="pointer-events-none absolute top-0 inset-x-0 h-20 z-10"
+          style={{ background: 'linear-gradient(to bottom, rgba(15,23,42,1) 0%, rgba(15,23,42,0.35) 50%, transparent 100%)' }}
+        />
         <Container>
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             {/* Card header — today's reading */}
             <div className="px-4 py-6 sm:px-10 sm:py-10 text-center">
-              <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-400">Citire zilnică · {todayLabel}</p>
+              <p className="text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Citire zilnică · {todayLabel}</p>
               <p className="mt-4 text-5xl font-bold text-slate-900">
                 {todayReading ? (todayReading as any).reading : '—'}
               </p>
@@ -99,6 +99,10 @@ export default function ReadingPlanPage() {
             </div>
           </div>
         </Container>
+        <div
+          className="pointer-events-none absolute bottom-0 inset-x-0 h-20"
+          style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(15,23,42,0.35) 60%, rgba(15,23,42,1) 100%)' }}
+        />
       </section>
     </div>
   );

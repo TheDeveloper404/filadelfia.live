@@ -2,7 +2,6 @@ import { ReactNode, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import NewsTicker from '@/components/NewsTicker';
 import WelcomeModal from '@/components/WelcomeModal';
 
 interface LayoutProps {
@@ -24,8 +23,7 @@ export default function Layout({ children }: LayoutProps) {
         Sari la conținut
       </a>
       <Nav />
-      <NewsTicker />
-      <main key={location.key} id="main-content" className="page-enter flex-1 -mt-[52px]">
+      <main key={location.key} id="main-content" className="page-enter flex-1">
         {children}
       </main>
       <Footer />

@@ -224,18 +224,9 @@ describe('AdminPage', () => {
     expect(screen.getByText(/administrator/i)).toBeInTheDocument();
   });
 
-  it('renders ticker form fields', () => {
+  it('renders events section', () => {
     renderPage(<AdminPage />);
-    expect(screen.getByText(/bandă de știri/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /salvează/i })).toBeInTheDocument();
-  });
-
-  it('saves ticker config to localStorage on save', () => {
-    renderPage(<AdminPage />);
-    const saveBtn = screen.getByRole('button', { name: /salvează/i });
-    fireEvent.click(saveBtn);
-    const stored = localStorage.getItem('filadelfia_ticker');
-    expect(stored).not.toBeNull();
+    expect(screen.getAllByText(/evenimente/i).length).toBeGreaterThan(0);
   });
 
   it('shows PIN screen when not unlocked', () => {

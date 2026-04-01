@@ -6,15 +6,9 @@ import { dbRead, dbWrite } from '@/lib/db';
 import defaultSchedule from '@/data/schedule.json';
 
 const ADMIN_PIN = '1526';
-const TICKER_KEY = 'filadelfia_ticker';
 const EVENTS_KEY = 'filadelfia_events';
 const SCHEDULE_KEY = 'filadelfia_schedule';
 const SESSION_KEY = 'filadelfia_admin_unlocked';
-
-interface TickerConfig {
-  enabled: boolean;
-  text: string;
-}
 
 export interface CustomEvent {
   id: string;
@@ -224,12 +218,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
 // ── Admin Panel ─────────────────────────────────────────────────────────────
 
 export default function AdminPage() {
-  const defaultTickerText = (siteConfig as any).ticker?.text ?? '';
   const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem(SESSION_KEY) === '1');
-
-  // Ticker
-  const [ticker, setTicker] = useState<TickerConfig>({ enabled: true, text: defaultTickerText });
-  const [tickerSaved, setTickerSaved] = useState(false);
 
   // Events
   const [events, setEvents] = useState<CustomEvent[]>([]);
@@ -253,17 +242,6 @@ export default function AdminPage() {
   useEffect(() => {
     if (!unlocked) return;
 
-    dbRead<TickerConfig>('ticker').then(remote => {
-      if (remote !== undefined) {
-        const val = remote ?? { enabled: false, text: '' };
-        setTicker(val);
-        localStorage.setItem(TICKER_KEY, JSON.stringify(val));
-      } else {
-        const stored = localStorage.getItem(TICKER_KEY);
-        if (stored) { try { setTicker(JSON.parse(stored)); } catch {} }
-      }
-    });
-
     dbRead<CustomEvent[]>('events').then(remote => {
       if (remote !== undefined) {
         const list = Array.isArray(remote) ? remote : [];
@@ -285,22 +263,6 @@ export default function AdminPage() {
       }
     });
   }, [unlocked]);
-
-  // ── Ticker handlers ────────────────────────────────────────────────────
-
-  const handleTickerSave = () => {
-    localStorage.setItem(TICKER_KEY, JSON.stringify(ticker));
-    dbWrite('ticker', ticker);
-    setTickerSaved(true);
-    setTimeout(() => setTickerSaved(false), 2000);
-  };
-
-  const handleTickerReset = () => {
-    const def = { enabled: true, text: defaultTickerText };
-    localStorage.removeItem(TICKER_KEY);
-    dbWrite('ticker', def);
-    setTicker(def);
-  };
 
   // ── Events handlers ────────────────────────────────────────────────────
 
@@ -726,59 +688,6 @@ export default function AdminPage() {
               ✓ Program actualizat cu succes
             </div>
           )}
-        </Card>
-
-        {/* ── Ticker card ── */}
-        <Card className="overflow-hidden p-0">
-          <div className="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-8 py-6">
-            <h2 className="text-xl font-bold text-slate-900">Bandă de știri (ticker)</h2>
-            <p className="mt-1 text-sm text-slate-500">
-              Textul afișat în banda derulantă de sub header.
-            </p>
-          </div>
-          <div className="space-y-5 p-8">
-            <label className="flex cursor-pointer items-center gap-3">
-              <div className="relative">
-                <input
-                  type="checkbox"
-                  className="sr-only"
-                  checked={ticker.enabled}
-                  onChange={e => setTicker(t => ({ ...t, enabled: e.target.checked }))}
-                />
-                <div className={`h-6 w-11 rounded-full transition-colors ${ticker.enabled ? 'bg-secondary' : 'bg-slate-300'}`} />
-                <div className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${ticker.enabled ? 'translate-x-5' : 'translate-x-0.5'}`} />
-              </div>
-              <span className="text-sm font-semibold text-slate-700">
-                {ticker.enabled ? 'Activat' : 'Dezactivat'}
-              </span>
-            </label>
-
-            <div>
-              <label className="mb-2 block text-sm font-semibold text-slate-700">Text ticker</label>
-              <textarea
-                rows={3}
-                value={ticker.text}
-                onChange={e => setTicker(t => ({ ...t, text: e.target.value }))}
-                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
-                placeholder="Textul care va rula în bandă..."
-              />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                onClick={handleTickerSave}
-                className="rounded-full bg-secondary px-5 py-2.5 text-sm font-bold text-secondary-foreground transition hover:bg-secondary/90"
-              >
-                {tickerSaved ? 'Salvat ✓' : 'Salvează'}
-              </button>
-              <button
-                onClick={handleTickerReset}
-                className="rounded-full border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
-              >
-                Resetează la default
-              </button>
-            </div>
-          </div>
         </Card>
 
       </div>

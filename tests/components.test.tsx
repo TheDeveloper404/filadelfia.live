@@ -4,7 +4,6 @@ import { MemoryRouter } from 'react-router-dom';
 
 import EventCard from '../src/components/EventCard';
 import MiniCalendar from '../src/components/MiniCalendar';
-import NewsTicker from '../src/components/NewsTicker';
 import Footer from '../src/components/Footer';
 import Nav from '../src/components/Nav';
 import LivePlayer from '../src/components/LivePlayer';
@@ -119,38 +118,6 @@ describe('MiniCalendar', () => {
     // Event dot span should be present
     const dots = container.querySelectorAll('.rounded-full.bg-secondary, .rounded-full.bg-secondary-foreground\\/50');
     expect(dots.length).toBeGreaterThan(0);
-  });
-});
-
-// ============================================================
-// NewsTicker
-// ============================================================
-describe('NewsTicker', () => {
-  beforeEach(() => localStorage.clear());
-  afterEach(() => localStorage.clear());
-
-  it('renders text from site-config when no localStorage override', () => {
-    localStorage.setItem('filadelfia_ticker', JSON.stringify({ enabled: true, text: 'Test mesaj ticker' }));
-    render(<NewsTicker />);
-    expect(screen.getAllByText('Test mesaj ticker').length).toBeGreaterThan(0);
-  });
-
-  it('renders the localStorage override text', () => {
-    localStorage.setItem('filadelfia_ticker', JSON.stringify({ enabled: true, text: 'Test ticker text' }));
-    render(<NewsTicker />);
-    expect(screen.getAllByText('Test ticker text').length).toBeGreaterThan(0);
-  });
-
-  it('renders nothing when disabled via localStorage', () => {
-    localStorage.setItem('filadelfia_ticker', JSON.stringify({ enabled: false, text: 'Hidden' }));
-    const { container } = render(<NewsTicker />);
-    expect(container.firstChild).toBeNull();
-  });
-
-  it('renders nothing when text is empty', () => {
-    localStorage.setItem('filadelfia_ticker', JSON.stringify({ enabled: true, text: '' }));
-    const { container } = render(<NewsTicker />);
-    expect(container.firstChild).toBeNull();
   });
 });
 

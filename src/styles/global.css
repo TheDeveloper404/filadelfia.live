@@ -396,7 +396,7 @@ p:last-child { margin-bottom: 0; }
    ============================================================ */
 @keyframes tickerScroll {
   from { transform: translateX(0); }
-  to   { transform: translateX(-25%); }
+  to   { transform: translateX(-33.33%); }
 }
 .ticker-track {
   animation: tickerScroll 12s linear infinite;

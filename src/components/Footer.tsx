@@ -96,7 +96,7 @@ export default function Footer() {
           </span>
           {showEgg && (
             <span className="ml-2 text-slate-600">
-              · Powered by <span className="font-semibold text-secondary">ACL Smart Software</span>
+              · Powered by <a href="https://acl-smartsoftware.ro/" target="_blank" rel="noopener noreferrer" className="font-semibold text-secondary hover:underline">ACL Smart Software</a>
             </span>
           )}
         </Container>

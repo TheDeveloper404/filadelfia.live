@@ -4,6 +4,7 @@ import Nav from '@/components/Nav';
 import { WaveDivider } from '@/components/WaveDivider';
 import Footer from '@/components/Footer';
 import WelcomeModal from '@/components/WelcomeModal';
+import { Analytics } from '@vercel/analytics/react';
 
 interface LayoutProps {
   children: ReactNode;
@@ -29,6 +30,7 @@ export default function Layout({ children }: LayoutProps) {
       </main>
       <WaveDivider topColor="#d4ab84" bottomColor="#0f172a" height={70} />
       <Footer />
+      <Analytics />
     </div>
   );
 }

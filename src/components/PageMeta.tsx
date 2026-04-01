@@ -7,8 +7,11 @@ interface PageMetaProps {
 
 export default function PageMeta({ title, description }: PageMetaProps) {
   useEffect(() => {
-    const base = title.replace(/\s*[|—–-]+\s*(Biserica\s+)?Filadelfia\s*/i, '').trim();
-    document.title = base ? `Biserica Filadelfia | ${base}` : 'Biserica Filadelfia';
+    if (title.startsWith('Biserica Filadelfia')) {
+      document.title = title;
+    } else {
+      document.title = `Biserica Filadelfia | ${title.replace(/\s*[|—–-]+\s*(Biserica\s+)?Filadelfia\s*/i, '').trim()}`;
+    }
     if (!description) return;
 
     let meta = document.querySelector('meta[name="description"]');

@@ -3,6 +3,7 @@ import { Plus, Trash2, Lock, Pencil } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import siteConfig from '@/data/site-config.json';
 import { dbRead, dbWrite } from '@/lib/db';
+import PageMeta from '@/components/PageMeta';
 import defaultSchedule from '@/data/schedule.json';
 
 const ADMIN_PIN = '1526';
@@ -407,6 +408,7 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-slate-50">
+      <PageMeta title="Admin" />
       {/* Top bar */}
       <div className="bg-slate-900 px-6 py-5">
         <div className="mx-auto max-w-3xl flex items-center justify-between">

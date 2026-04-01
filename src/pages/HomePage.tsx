@@ -155,7 +155,7 @@ export default function HomePage() {
               </p>
               <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap sm:justify-center">
                 {services.map(service => {
-                  const isNext = nextService?.service.id === service.id;
+                  const isNext = nextService?.service.id === service.id && nextService.daysUntil === 0;
                   return (
                     <div
                       key={service.id}

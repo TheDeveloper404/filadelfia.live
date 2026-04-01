@@ -240,6 +240,10 @@ export default function AdminPage() {
   // Confirm delete
   const [confirmDelete, setConfirmDelete] = useState<{ type: 'event' | 'service'; id: string; label: string } | null>(null);
 
+  // Undo delete
+  const [lastDeleted, setLastDeleted] = useState<{ type: 'event' | 'service'; item: CustomEvent | ScheduleService; label: string } | null>(null);
+  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
     if (!unlocked) return;
 
@@ -393,11 +397,36 @@ export default function AdminPage() {
   const confirmDeleteAction = () => {
     if (!confirmDelete) return;
     if (confirmDelete.type === 'event') {
-      persistEvents(events.filter(e => e.id !== confirmDelete.id));
+      const item = events.find(e => e.id === confirmDelete.id);
+      if (item) {
+        persistEvents(events.filter(e => e.id !== confirmDelete.id));
+        scheduleUndo({ type: 'event', item, label: confirmDelete.label });
+      }
     } else {
-      persistSchedule(services.filter(s => s.id !== confirmDelete.id));
+      const item = services.find(s => s.id === confirmDelete.id);
+      if (item) {
+        persistSchedule(services.filter(s => s.id !== confirmDelete.id));
+        scheduleUndo({ type: 'service', item, label: confirmDelete.label });
+      }
     }
     setConfirmDelete(null);
+  };
+
+  const scheduleUndo = (deleted: { type: 'event' | 'service'; item: CustomEvent | ScheduleService; label: string }) => {
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    setLastDeleted(deleted);
+    undoTimerRef.current = setTimeout(() => setLastDeleted(null), 5000);
+  };
+
+  const handleUndo = () => {
+    if (!lastDeleted) return;
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current);
+    if (lastDeleted.type === 'event') {
+      persistEvents([...events, lastDeleted.item as CustomEvent]);
+    } else {
+      persistSchedule([...services, lastDeleted.item as ScheduleService]);
+    }
+    setLastDeleted(null);
   };
 
   // ── Render ─────────────────────────────────────────────────────────────
@@ -693,6 +722,21 @@ export default function AdminPage() {
         </Card>
 
       </div>
+
+      {/* ── Undo banner ── */}
+      {lastDeleted && (
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 flex items-center gap-4 rounded-2xl bg-slate-900 px-6 py-4 shadow-xl">
+          <p className="text-sm text-white">
+            <span className="font-semibold">"{lastDeleted.label}"</span> a fost șters.
+          </p>
+          <button
+            onClick={handleUndo}
+            className="rounded-full bg-secondary px-4 py-1.5 text-xs font-bold text-secondary-foreground transition hover:bg-secondary/90"
+          >
+            Anulează
+          </button>
+        </div>
+      )}
 
       {/* ── Confirm delete modal ── */}
       {confirmDelete && (

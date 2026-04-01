@@ -71,7 +71,7 @@ export default function HomePage() {
   }, [services]);
 
   const allEvents = [...staticEvents, ...customEvents].sort((a, b) => a.date.localeCompare(b.date));
-  const upcomingEvents = allEvents.filter(event => isUpcoming(event.date)).slice(0, 3);
+  const upcomingEvents = allEvents.filter(event => isUpcoming(event.date));
 
   return (
     <div>
@@ -192,7 +192,7 @@ export default function HomePage() {
                   Evenimente
                 </p>
                 {upcomingEvents.length > 0 ? (
-                  <div className="space-y-3">
+                  <div className="max-h-[420px] overflow-y-auto space-y-3 pr-1">
                     {upcomingEvents.map(event => (
                       <EventCard key={event.id} {...event} />
                     ))}

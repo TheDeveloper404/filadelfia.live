@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { createPortal } from 'react-dom';
 import Container from '@/components/ui/container';
 import PageMeta from '@/components/PageMeta';
@@ -52,7 +52,7 @@ export default function StiriPage() {
 
   useEffect(() => {
     fetchArticles()
-      .then(setArticles)
+      .then(data => startTransition(() => setArticles(data)))
       .catch(() => setError('Știrile nu pot fi încărcate momentan. Încearcă din nou mai târziu.'))
       .finally(() => setLoading(false));
   }, []);

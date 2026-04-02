@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import { Link } from 'react-router-dom';
 import siteConfig from '@/data/site-config.json';
 import staticEvents from '@/data/events.json';
@@ -48,14 +48,14 @@ export default function HomePage() {
     dbRead<CustomEvent[]>('events').then(remote => {
       if (remote !== undefined) {
         const list = Array.isArray(remote) ? remote : [];
-        setCustomEvents(list);
         localStorage.setItem(EVENTS_KEY, JSON.stringify(list));
+        startTransition(() => setCustomEvents(list));
       }
     });
     dbRead<typeof schedule.services>('schedule').then(remote => {
       if (remote !== undefined && Array.isArray(remote) && remote.length > 0) {
-        setServices(remote);
         localStorage.setItem(SCHEDULE_KEY, JSON.stringify(remote));
+        startTransition(() => setServices(remote));
       }
     });
   }, []);

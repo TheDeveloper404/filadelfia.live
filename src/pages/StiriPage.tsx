@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import Container from '@/components/ui/container';
 import PageMeta from '@/components/PageMeta';
 import { WaveDivider } from '@/components/WaveDivider';
@@ -47,6 +48,7 @@ export default function StiriPage() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     fetchArticles()
@@ -84,20 +86,18 @@ export default function StiriPage() {
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
-              <p className="mt-3 text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Află ultimele noutăți și evenimente care se petrec în lume.</p>
+            <p className="mt-3 text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>CITEȘTE ACUM</p>
               <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Cele mai recente știri din lumea creștină</h2>
             </div>
 
             <div className="p-4 sm:p-10">
               <div className="text-center mb-8">
-                <a
-                  href="https://crestintotal.ro/category/stiri/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => setShowPopup(true)}
                   className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-bold text-secondary-foreground transition hover:bg-secondary/90 shadow-md shadow-secondary/20"
                 >
                   Vezi toate știrile pe crestintotal.ro
-                </a>
+                </button>
               </div>
               {loading && (
                 <div className="flex items-center justify-center py-16">
@@ -167,6 +167,41 @@ export default function StiriPage() {
           </div>
         </Container>
       </section>
+
+      {/* Popup */}
+      {showPopup && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPopup(false)} />
+          <div className="relative mx-4 w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl">
+            <div className="mb-1 flex items-center gap-3">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-secondary/15 text-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/>
+                </svg>
+              </span>
+              <h3 className="text-xl font-bold text-slate-900">Știri creștine</h3>
+            </div>
+            <p className="mt-3 text-base leading-7 text-slate-600">
+              Vei fi direcționat către crestintotal.ro unde găsești toate știrile și articolele creștine.
+            </p>
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => { setShowPopup(false); window.open('https://crestintotal.ro/category/stiri/', '_blank'); }}
+                className="flex-1 rounded-full bg-secondary px-5 py-2.5 text-sm font-bold text-secondary-foreground transition hover:bg-secondary/90"
+              >
+                Deschide crestintotal.ro
+              </button>
+              <button
+                onClick={() => setShowPopup(false)}
+                className="flex-1 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
+              >
+                Anulează
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

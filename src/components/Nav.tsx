@@ -43,7 +43,7 @@ export default function Nav() {
       <Container className="flex items-center justify-between py-3">
         <Link to="/" className="flex items-center gap-3 text-3xl font-bold text-white hover:text-white">
           <img src="/logo.png" alt="Logo Filadelfia" className="h-12 w-12 object-contain" />
-          <span className="text-2xl sm:text-4xl">{siteConfig.churchName}</span>
+          <span className="hidden sm:inline text-2xl sm:text-4xl">{siteConfig.churchName}</span>
         </Link>
 
         {/* Desktop nav */}
@@ -66,16 +66,17 @@ export default function Nav() {
 
         {/* Hamburger button — mobile only */}
         <button
-          className="flex md:hidden items-center justify-center h-10 w-10 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition"
+          className="relative flex md:hidden items-center justify-center h-14 w-14 rounded-full text-slate-300 hover:text-white transition overflow-hidden active:scale-95"
           onClick={() => setMenuOpen(o => !o)}
           aria-label={menuOpen ? 'Închide meniu' : 'Deschide meniu'}
         >
+          <span className="absolute inset-0 rounded-full bg-white/10 scale-0 transition-transform duration-300 ease-out group-active:scale-100" />
           {menuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 transition-transform duration-200 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           )}

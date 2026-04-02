@@ -84,11 +84,21 @@ export default function StiriPage() {
           <div className="rounded-3xl bg-white shadow-sm border border-slate-200/80 overflow-hidden">
 
             <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
-              <p className="text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Selectate pentru tine</p>
-              <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Știri recente</h2>
+              <p className="mt-3 text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Află ultimele noutăți și evenimente care se petrec în lume.</p>
+              <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Cele mai recente știri din lumea creștină</h2>
             </div>
 
             <div className="p-4 sm:p-10">
+              <div className="text-center mb-8">
+                <a
+                  href="https://crestintotal.ro/category/stiri/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-bold text-secondary-foreground transition hover:bg-secondary/90 shadow-md shadow-secondary/20"
+                >
+                  Vezi toate știrile pe crestintotal.ro
+                </a>
+              </div>
               {loading && (
                 <div className="flex items-center justify-center py-16">
                   <div className="h-8 w-8 animate-spin rounded-full border-4 border-secondary border-t-transparent" />
@@ -150,17 +160,6 @@ export default function StiriPage() {
                         </div>
                       </a>
                     ))}
-                  </div>
-
-                  <div className="mt-8 text-center">
-                    <a
-                      href="https://crestintotal.ro/category/stiri/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-6 py-2.5 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
-                    >
-                      Toate știrile pe crestintotal.ro
-                    </a>
                   </div>
                 </>
               )}

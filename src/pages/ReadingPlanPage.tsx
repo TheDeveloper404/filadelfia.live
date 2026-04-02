@@ -47,7 +47,7 @@ export default function ReadingPlanPage() {
 
             {/* Card header */}
             <div className="border-b border-slate-100 px-4 py-6 sm:px-10 sm:py-8 text-center">
-              <p className="text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Lectură zilnică</p>
+              <p className="text-base font-semibold uppercase tracking-[0.3em]" style={{ color: '#d4ab84' }}>Începeți ziua cu Biblia</p>
               <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Fii la zi cu citirea Cuvântului lui Dumnezeu</h2>
             </div>
 

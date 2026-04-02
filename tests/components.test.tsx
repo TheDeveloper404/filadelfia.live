@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
@@ -154,24 +154,6 @@ describe('Nav', () => {
     expect(screen.getAllByRole('link', { name: /contact/i }).length).toBeGreaterThan(0);
   });
 
-  it('renders Arhivă as a clickable element', () => {
-    withRouter(<Nav />);
-    expect(screen.getAllByText(/arhivă/i).length).toBeGreaterThan(0);
-  });
-
-  it('shows popup when Arhivă is clicked', () => {
-    withRouter(<Nav />);
-    fireEvent.click(screen.getAllByText(/arhivă/i)[0]!);
-    expect(screen.getByText(/arhivă predici/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /deschide youtube/i })).toBeInTheDocument();
-  });
-
-  it('closes popup when Anulează is clicked', () => {
-    withRouter(<Nav />);
-    fireEvent.click(screen.getAllByText(/arhivă/i)[0]!);
-    fireEvent.click(screen.getByRole('button', { name: /anulează/i }));
-    expect(screen.queryByText(/arhivă predici/i)).not.toBeInTheDocument();
-  });
 });
 
 // ============================================================

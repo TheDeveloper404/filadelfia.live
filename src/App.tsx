@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from '@/components/Layout';
 import HomePage from '@/pages/HomePage';
 import LivePage from '@/pages/LivePage';
-import ArchivePage from '@/pages/ArchivePage';
 import ReadingPlanPage from '@/pages/ReadingPlanPage';
 import ContactPage from '@/pages/ContactPage';
 import AdminPage from '@/pages/AdminPage';
@@ -22,7 +21,6 @@ export default function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/live" element={<LivePage />} />
-              <Route path="/arhiva" element={<ArchivePage />} />
               <Route path="/plan-citire" element={<ReadingPlanPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/stiri" element={<StiriPage />} />

@@ -13,7 +13,7 @@ const navLinks = [
 
 export default function Nav() {
   const location = useLocation();
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(() => window.scrollY > 10);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {

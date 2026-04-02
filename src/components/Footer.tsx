@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import Container from '@/components/ui/container';
-import ChurchIcon from '@/components/ui/ChurchIcon';
 import siteConfig from '@/data/site-config.json';
 
 export default function Footer() {
@@ -17,10 +16,8 @@ export default function Footer() {
           {/* Col 1 — Brand */}
           <div className="flex flex-col items-center md:items-start gap-4 pr-0 md:pr-10 text-center md:text-left">
             <Link to="/" className="flex items-center gap-3 text-white hover:text-white w-fit">
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-sm">
-                <ChurchIcon className="h-7 w-7" />
-              </span>
-              <span className="text-lg sm:text-3xl font-bold leading-tight">{siteConfig.churchName}</span>
+              <img src="/logo.png" alt="Logo Filadelfia" className="h-12 w-12 sm:h-16 sm:w-16 object-contain" />
+              <span className="text-4xl sm:text-4xl font-bold leading-tight">{siteConfig.churchName}</span>
             </Link>
             <p className="text-xl text-slate-400 leading-relaxed">
               O comunitate vie în prezența lui Dumnezeu

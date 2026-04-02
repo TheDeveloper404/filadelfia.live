@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Container from '@/components/ui/container';
-import ChurchIcon from '@/components/ui/ChurchIcon';
 import siteConfig from '@/data/site-config.json';
 
 const navLinks = [
@@ -25,21 +24,26 @@ export default function Nav() {
 
   useEffect(() => { setMenuOpen(false); }, [location.pathname]);
 
+  const isHome = location.pathname === '/';
+  const transparentMobile = isHome && !scrolled;
+
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`top-0 z-50 transition-all duration-300 ${
+        transparentMobile ? 'absolute md:sticky' : 'sticky'
+      } ${
         scrolled
           ? 'bg-slate-900/95 backdrop-blur-xl border-b border-white/8 shadow-lg shadow-black/20'
-          : 'bg-slate-900'
+          : isHome
+            ? 'bg-transparent md:bg-slate-900'
+            : 'bg-slate-900'
       }`}
-      style={{ position: 'sticky' }}
+      style={{ width: '100%' }}
     >
       <Container className="flex items-center justify-between py-3">
         <Link to="/" className="flex items-center gap-3 text-3xl font-bold text-white hover:text-white">
-          <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary text-secondary-foreground shadow-sm">
-            <ChurchIcon className="h-7 w-7" />
-          </span>
-          <span className="text-lg sm:text-3xl">{siteConfig.churchName}</span>
+          <img src="/logo.png" alt="Logo Filadelfia" className="h-12 w-12 object-contain" />
+          <span className="text-2xl sm:text-4xl">{siteConfig.churchName}</span>
         </Link>
 
         {/* Desktop nav */}

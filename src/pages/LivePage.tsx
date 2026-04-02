@@ -37,7 +37,7 @@ export default function LivePage() {
               <h2 className="mt-2 text-4xl font-bold text-slate-900 sm:text-5xl">Ultimul program înregistrat</h2>
             </div>
             <div className="p-4 sm:p-10">
-              <LivePlayer autoplay />
+              <LivePlayer />
             </div>
           </div>
         </Container>

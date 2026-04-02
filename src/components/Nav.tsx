@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import Container from '@/components/ui/container';
 import siteConfig from '@/data/site-config.json';
@@ -79,6 +80,10 @@ export default function Nav() {
       </Container>
 
       {/* Mobile menu — card cu margini */}
+      {menuOpen && createPortal(
+        <div className="fixed inset-0 z-40 md:hidden" onClick={() => setMenuOpen(false)} />,
+        document.body
+      )}
       <div className={`absolute left-0 right-0 top-full z-50 md:hidden px-4 pt-2 pb-4 ${!menuOpen ? 'pointer-events-none' : ''}`}>
       <div
         className={`transition-all duration-300 ${

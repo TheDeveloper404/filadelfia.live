@@ -20,7 +20,7 @@ export default function Layout({ children }: LayoutProps) {
 
 
   return (
-    <div className="min-h-screen bg-background text-foreground antialiased">
+    <div className="min-h-screen bg-slate-900 text-foreground antialiased">
       <WelcomeModal />
       <a href="#main-content" className="skip-link">
         Sari la conținut

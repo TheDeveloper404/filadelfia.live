@@ -108,6 +108,7 @@ export default function Nav() {
               <Link
                 key={link.to}
                 to={link.to}
+                onClick={() => setMenuOpen(false)}
                 className={`rounded-2xl px-5 py-3.5 text-base font-semibold transition-all ${
                   active ? 'bg-secondary/20 text-secondary' : 'text-slate-300 hover:bg-white/8 hover:text-white'
                 }`}

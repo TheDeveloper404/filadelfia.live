@@ -164,8 +164,10 @@ export default function HomePage() {
                   const now = new Date();
                   const [sh, sm] = service.time.split(':').map(Number);
                   const [eh, em] = service.endTime ? service.endTime.split(':').map(Number) : [sh + 2, 0];
+                  const liveStart = (service as typeof service & { liveStartTime?: string }).liveStartTime ?? service.time;
+                  const [lh, lm] = liveStart.split(':').map(Number);
                   const cur = now.getHours() * 60 + now.getMinutes();
-                  const isLiveNow = service.isLive && now.getDay() === service.dayOfWeek && cur >= sh * 60 + (sm || 0) && cur < eh * 60 + (em || 0);
+                  const isLiveNow = service.isLive && now.getDay() === service.dayOfWeek && cur >= lh * 60 + (lm || 0) && cur < eh * 60 + (em || 0);
                   return (
                     <div
                       key={service.id}

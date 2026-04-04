@@ -31,6 +31,7 @@ export interface ScheduleService {
   endTime: string | null;
   title: string;
   isLive: boolean;
+  liveOverride?: boolean;
 }
 
 const DAY_LABELS_ADMIN = ['Duminică', 'Luni', 'Marți', 'Miercuri', 'Joi', 'Vineri', 'Sâmbătă'];
@@ -237,6 +238,14 @@ export default function AdminPage() {
   const [serviceSaved, setServiceSaved] = useState(false);
   const [serviceFormError, setServiceFormError] = useState('');
 
+
+  // Maintenance banner
+  const [banner, setBanner] = useState({ active: false, message: '' });
+  const [bannerSaved, setBannerSaved] = useState(false);
+
+  // Stats
+  const [stats, setStats] = useState<Record<string, number>>({});
+
   // Confirm delete
   const [confirmDelete, setConfirmDelete] = useState<{ type: 'event' | 'service'; id: string; label: string } | null>(null);
 
@@ -246,6 +255,14 @@ export default function AdminPage() {
 
   useEffect(() => {
     if (!unlocked) return;
+
+    dbRead<{ active: boolean; message: string }>('maintenanceBanner').then(remote => {
+      if (remote && typeof remote === 'object') setBanner(remote);
+    });
+
+    dbRead<Record<string, number>>('stats').then(remote => {
+      if (remote && typeof remote === 'object') setStats(remote);
+    });
 
     dbRead<CustomEvent[]>('events').then(remote => {
       if (remote !== undefined) {
@@ -334,6 +351,17 @@ export default function AdminPage() {
   const handleDeleteEvent = (id: string) => {
     const ev = events.find(e => e.id === id);
     setConfirmDelete({ type: 'event', id, label: ev?.title ?? 'eveniment' });
+  };
+
+  const handleSaveBanner = () => {
+    dbWrite('maintenanceBanner', banner);
+    setBannerSaved(true);
+    setTimeout(() => setBannerSaved(false), 2500);
+  };
+
+  const handleToggleLiveOverride = (id: string) => {
+    const updated = services.map(s => s.id === id ? { ...s, liveOverride: !s.liveOverride } : s);
+    persistSchedule(updated);
   };
 
   const handleLock = () => {
@@ -440,7 +468,7 @@ export default function AdminPage() {
       <PageMeta title="Admin" />
       {/* Top bar */}
       <div className="bg-slate-900 px-6 py-5">
-        <div className="mx-auto max-w-3xl flex items-center justify-between">
+        <div className="mx-auto max-w-6xl flex items-center justify-between">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.25em] text-slate-400">Panou Administrator</p>
             <h1 className="mt-0.5 text-lg font-bold text-white">Filadelfia — Administrare</h1>
@@ -455,7 +483,76 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl space-y-6 px-6 py-10">
+      <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6 px-6 py-10 items-start">
+
+        {/* ── Maintenance banner card ── */}
+        <Card className="overflow-hidden p-0 lg:col-span-2">
+          <div className="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-8 py-6 flex items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-bold text-slate-900">Mesaj de indisponibilitate</h2>
+              <p className="mt-1 text-sm text-slate-500">Banner afișat pe toate paginile — mentenanță, live căzut, anunț urgent.</p>
+            </div>
+            <label className="flex cursor-pointer items-center gap-3 shrink-0">
+              <span className={`text-sm font-bold ${banner.active ? 'text-amber-600' : 'text-slate-400'}`}>
+                {banner.active ? 'Activ' : 'Inactiv'}
+              </span>
+              <div className="relative" onClick={() => setBanner(b => ({ ...b, active: !b.active }))}>
+                <div className={`h-7 w-14 rounded-full transition-colors ${banner.active ? 'bg-amber-500' : 'bg-slate-300'}`} />
+                <div className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform ${banner.active ? 'translate-x-8' : 'translate-x-1'}`} />
+              </div>
+            </label>
+          </div>
+          <div className="px-8 py-6 space-y-4">
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold text-slate-600">Mesaj</label>
+              <input
+                type="text"
+                value={banner.message}
+                onChange={e => setBanner(b => ({ ...b, message: e.target.value }))}
+                placeholder="ex: Livestream-ul nu este disponibil momentan. Revenim în curând."
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-800 outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/20"
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={handleSaveBanner}
+                className="rounded-full bg-secondary px-5 py-2.5 text-sm font-bold text-secondary-foreground transition hover:bg-secondary/90"
+              >
+                Salvează
+              </button>
+              {bannerSaved && <span className="text-sm font-semibold text-green-600">✓ Salvat</span>}
+            </div>
+          </div>
+        </Card>
+
+        {/* ── Stats card ── */}
+        {(() => {
+          const today = new Date().toISOString().slice(0, 10);
+          const todayCount = stats[today] ?? 0;
+          const weekCount = Array.from({ length: 7 }, (_, i) => {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            return stats[d.toISOString().slice(0, 10)] ?? 0;
+          }).reduce((a, b) => a + b, 0);
+          return (
+            <Card className="overflow-hidden p-0 lg:col-span-2">
+              <div className="border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-8 py-6">
+                <h2 className="text-xl font-bold text-slate-900">Statistici vizitatori</h2>
+                <p className="mt-1 text-sm text-slate-500">Sesiuni unice — o sesiune per tab de browser.</p>
+              </div>
+              <div className="grid grid-cols-2 divide-x divide-slate-100 px-0">
+                <div className="px-8 py-6 text-center">
+                  <p className="text-4xl font-bold text-slate-900">{todayCount}</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-500">Azi</p>
+                </div>
+                <div className="px-8 py-6 text-center">
+                  <p className="text-4xl font-bold text-slate-900">{weekCount}</p>
+                  <p className="mt-1 text-sm font-semibold text-slate-500">Ultimele 7 zile</p>
+                </div>
+              </div>
+            </Card>
+          );
+        })()}
 
         {/* ── Events card ── */}
         <Card className="overflow-hidden p-0">
@@ -702,7 +799,21 @@ export default function AdminPage() {
                   </p>
                   <p className="mt-0.5 font-semibold text-slate-900">{svc.title}</p>
                 </div>
-                <div className="flex shrink-0 gap-1">
+                <div className="flex shrink-0 items-center gap-3">
+                  {svc.isLive && (
+                    <button
+                      onClick={() => handleToggleLiveOverride(svc.id)}
+                      title={svc.liveOverride ? 'Dezactivează live forțat' : 'Forțează live acum'}
+                      className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition ${
+                        svc.liveOverride
+                          ? 'bg-red-500 text-white hover:bg-red-600'
+                          : 'border border-slate-200 text-slate-400 hover:border-red-300 hover:text-red-500'
+                      }`}
+                    >
+                      {svc.liveOverride && <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white shrink-0" />}
+                      {svc.liveOverride ? 'LIVE' : 'Forțează live'}
+                    </button>
+                  )}
                   <button onClick={() => handleEditService(svc)} className="rounded-lg p-2 text-slate-400 transition hover:bg-secondary/10 hover:text-secondary">
                     <Pencil className="h-4 w-4" />
                   </button>

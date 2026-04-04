@@ -167,7 +167,7 @@ export default function HomePage() {
                   const liveStart = (service as typeof service & { liveStartTime?: string }).liveStartTime ?? service.time;
                   const [lh, lm] = liveStart.split(':').map(Number);
                   const cur = now.getHours() * 60 + now.getMinutes();
-                  const isLiveNow = service.isLive && now.getDay() === service.dayOfWeek && cur >= lh * 60 + (lm || 0) && cur < eh * 60 + (em || 0);
+                  const isLiveNow = service.isLive && ((service as typeof service & { liveOverride?: boolean }).liveOverride || (now.getDay() === service.dayOfWeek && cur >= lh * 60 + (lm || 0) && cur < eh * 60 + (em || 0)));
                   return (
                     <div
                       key={service.id}

@@ -24,9 +24,9 @@ export default function EventCard({ title, date, endDate, time, description, isL
         {time && (
           <p className="text-xs font-semibold text-slate-400">{time}</p>
         )}
-        {isLive && (
+        {isLive && isToday && (
           <p className="flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-widest text-secondary">
-            <span className="h-1.5 w-1.5 rounded-full bg-red-500 shrink-0" />
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500 shrink-0" />
             live
           </p>
         )}

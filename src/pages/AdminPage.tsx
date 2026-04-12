@@ -406,11 +406,16 @@ export default function AdminPage() {
   };
 
   const handleSaveService = () => {
-    if (serviceForm.dayOfWeek === '') { setServiceFormError('Ziua este obligatorie.'); return; }
+    const hasSpecificDate = !!serviceForm.specificDate;
+    if (!hasSpecificDate && serviceForm.dayOfWeek === '') { setServiceFormError('Ziua este obligatorie.'); return; }
     if (!serviceForm.time) { setServiceFormError('Ora de început este obligatorie.'); return; }
     if (!serviceForm.title.trim()) { setServiceFormError('Titlul este obligatoriu.'); return; }
 
-    const day = serviceForm.dayOfWeek as number;
+    // Derive dayOfWeek from specificDate if provided
+    const day = hasSpecificDate
+      ? new Date(serviceForm.specificDate).getDay()
+      : serviceForm.dayOfWeek as number;
+
     if (editingServiceId) {
       persistSchedule(services.map(s => s.id === editingServiceId ? {
         ...s, dayOfWeek: day, dayLabel: DAY_LABEL_MAP[day],
@@ -767,19 +772,21 @@ export default function AdminPage() {
                   />
                 </div>
                 {/* Row 2: Zi | Dată specifică */}
-                <div>
-                  <label className="mb-1.5 block text-xs font-semibold text-slate-600">Zi <span className="text-red-500">*</span></label>
-                  <select
-                    value={serviceForm.dayOfWeek}
-                    onChange={e => setServiceForm(f => ({ ...f, dayOfWeek: e.target.value === '' ? '' : Number(e.target.value) }))}
-                    className={selectCls + ' w-full'}
-                  >
-                    <option value="">Selectează ziua</option>
-                    {DAY_OPTIONS.map(opt => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
-                </div>
+                {!serviceForm.specificDate && (
+                  <div>
+                    <label className="mb-1.5 block text-xs font-semibold text-slate-600">Zi <span className="text-red-500">*</span></label>
+                    <select
+                      value={serviceForm.dayOfWeek}
+                      onChange={e => setServiceForm(f => ({ ...f, dayOfWeek: e.target.value === '' ? '' : Number(e.target.value) }))}
+                      className={selectCls + ' w-full'}
+                    >
+                      <option value="">Selectează ziua</option>
+                      {DAY_OPTIONS.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
                 <div>
                   <label className="mb-1.5 block text-xs font-semibold text-slate-600">
                     Dată specifică <span className="text-slate-400 font-normal">(opțional)</span>

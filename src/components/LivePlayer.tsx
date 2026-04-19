@@ -19,7 +19,10 @@ export default function LivePlayer({ onStateChange }: { onStateChange?: (live: b
   useEffect(() => {
     let cancelled = false;
 
-    fetch('/api/live-status')
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+
+    fetch('/api/live-status', { signal: controller.signal })
       .then(r => r.json() as Promise<LiveStatus>)
       .then(data => {
         if (cancelled) return;
@@ -32,7 +35,8 @@ export default function LivePlayer({ onStateChange }: { onStateChange?: (live: b
       })
       .catch(() => {
         if (!cancelled) setLiveState('offline');
-      });
+      })
+      .finally(() => clearTimeout(timeout));
 
     return () => { cancelled = true; };
   }, []);

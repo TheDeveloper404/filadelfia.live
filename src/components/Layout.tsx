@@ -66,8 +66,12 @@ export default function Layout({ children }: LayoutProps) {
       <main key={location.key} id="main-content" className="page-enter flex-1">
         {children}
       </main>
-      <WaveDivider topColor="#d4ab84" bottomColor="#0f172a" height={70} />
-      <Footer />
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 -translate-y-full">
+          <WaveDivider bottomColor="#0f172a" height={70} />
+        </div>
+        <Footer />
+      </div>
       <Analytics />
       <SpeedInsights />
     </div>

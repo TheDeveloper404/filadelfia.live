@@ -87,8 +87,10 @@ export default function StiriPage() {
             </a>
           </p>
         </Container>
+        <div className="absolute inset-x-0 bottom-0 z-10">
+          <WaveDivider bottomColor="#d4ab84" height={70} />
+        </div>
       </section>
-      <WaveDivider bottomColor="#d4ab84" height={70} />
       {/* Content */}
       <section className="py-20 bg-[#d4ab84] sm:py-24">
         <Container>

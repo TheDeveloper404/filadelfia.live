@@ -38,8 +38,10 @@ export default function ReadingPlanPage() {
             Citește Biblia și vei deveni mai înțelept, crede-o ca să fii în siguranță și aplică-o, ca să trăiești o viață adevărată!
           </p>
         </Container>
+        <div className="absolute inset-x-0 bottom-0 z-10">
+          <WaveDivider bottomColor="#d4ab84" height={70} />
+        </div>
       </section>
-      <WaveDivider bottomColor="#d4ab84" height={70} />
       {/* ── Plan ── */}
       <section className="py-20 sm:py-24 bg-[#d4ab84]">
         <Container>

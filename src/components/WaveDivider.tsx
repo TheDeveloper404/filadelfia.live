@@ -6,7 +6,7 @@ type WaveDividerProps = {
 };
 
 export function WaveDivider({
-  topColor = '#0f172a',
+  topColor = 'transparent',
   bottomColor = '#d4ab84',
   height = 80,
   flip = false,

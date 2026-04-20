@@ -31,8 +31,6 @@ Thumbs.db
 # Vercel
 .vercel/
 
-# Local notes
-LIVE_DETECTION_NOTES.md
 
 # Playwright
 /test-results/

@@ -1,6 +1,6 @@
 // Vercel Serverless Function — YouTube live detection
 // Cost: 2 units/request (playlistItems.list + videos.list)
-// Cache: 60s at Vercel edge → max ~2,880 units/day regardless of concurrent users
+// Cache: 30s at Vercel edge
 
 const API_KEY = process.env.YOUTUBE_API_KEY ?? '';
 const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID ?? 'UCgD-Qqh0_gQnBluzEEuPddw';
@@ -24,20 +24,20 @@ export default async function handler(): Promise<Response> {
     // Call 1: get latest video IDs from uploads playlist (1 unit)
     const plRes = await fetch(
       `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${UPLOADS_PLAYLIST_ID}&maxResults=5&key=${API_KEY}`,
-      { next: { revalidate: 60 } } as RequestInit,
     );
     if (!plRes.ok) {
       console.error('[live-status] playlistItems error', plRes.status);
       return json(FALLBACK);
     }
     const pl = await plRes.json();
-    const ids: string[] = (pl.items ?? []).map((i: { contentDetails: { videoId: string } }) => i.contentDetails.videoId);
+    const ids: string[] = (pl.items ?? []).map(
+      (i: { contentDetails: { videoId: string } }) => i.contentDetails.videoId,
+    );
     if (!ids.length) return json(FALLBACK);
 
     // Call 2: check live status of those videos (1 unit)
     const vidRes = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,liveStreamingDetails&id=${ids.join(',')}&key=${API_KEY}`,
-      { next: { revalidate: 60 } } as RequestInit,
     );
     if (!vidRes.ok) {
       console.error('[live-status] videos error', vidRes.status);
@@ -45,13 +45,10 @@ export default async function handler(): Promise<Response> {
     }
     const vid = await vidRes.json();
 
-    const liveVideo = (vid.items ?? []).find((v: {
-      snippet: { liveBroadcastContent: string };
-      liveStreamingDetails?: { actualStartTime?: string; actualEndTime?: string };
-    }) =>
-      v.snippet.liveBroadcastContent === 'live' &&
-      v.liveStreamingDetails?.actualStartTime &&
-      !v.liveStreamingDetails?.actualEndTime
+    // Only check liveBroadcastContent — simplest and most reliable signal
+    const liveVideo = (vid.items ?? []).find(
+      (v: { snippet: { liveBroadcastContent: string } }) =>
+        v.snippet.liveBroadcastContent === 'live',
     );
 
     if (liveVideo) {
@@ -69,8 +66,8 @@ function json(data: LiveStatusResponse): Response {
   return new Response(JSON.stringify(data), {
     headers: {
       'Content-Type': 'application/json',
-      // Cache 60s at Vercel edge — all users share the same cached response
-      'Cache-Control': 's-maxage=60, stale-while-revalidate=300',
+      // 30s cache — balances freshness vs quota usage
+      'Cache-Control': 's-maxage=30, stale-while-revalidate=30',
     },
   });
 }

@@ -24,6 +24,7 @@ Thumbs.db
 .idea/
 
 # Claude Code local settings
+/Claude_Development_Rules
 .claude/settings.local.json
 *.swp
 *.swo

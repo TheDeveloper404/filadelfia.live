@@ -65,6 +65,7 @@ export default function Layout({ children }: LayoutProps) {
       )}
       <main key={location.key} id="main-content" className="page-enter flex-1">
         {children}
+        <div className="h-[70px] bg-[#d4ab84]" aria-hidden="true" />
       </main>
       <div className="relative">
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 -translate-y-full">

@@ -1,6 +1,8 @@
-// Vercel Serverless Function — Firebase write proxy
+// Vercel Edge Function — Firebase write proxy
 // Direct writes to Firebase are blocked (rules: ".write": false)
 // This function writes using server-side credentials (FIREBASE_DB_SECRET)
+
+export const config = { runtime: 'edge' };
 
 const DB_URL = process.env.FIREBASE_DB_URL ?? '';
 const DB_SECRET = process.env.FIREBASE_DB_SECRET ?? '';

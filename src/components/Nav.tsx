@@ -7,6 +7,7 @@ import siteConfig from '@/data/site-config.json';
 const navLinks = [
   { to: '/', label: 'Acasă' },
   { to: '/live', label: 'Live' },
+  { to: '/despre-noi', label: 'Despre noi' },
   { to: '/stiri', label: 'Știri' },
   { to: '/plan-citire', label: 'Plan Biblic' },
   { to: '/contact', label: 'Contact' },

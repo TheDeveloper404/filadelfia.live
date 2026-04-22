@@ -6,6 +6,7 @@ import ReadingPlanPage from '@/pages/ReadingPlanPage';
 import ContactPage from '@/pages/ContactPage';
 import AdminPage from '@/pages/AdminPage';
 import StiriPage from '@/pages/StiriPage';
+import DespreNoi from '@/pages/DespreNoi';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
               <Route path="/plan-citire" element={<ReadingPlanPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/stiri" element={<StiriPage />} />
+              <Route path="/despre-noi" element={<DespreNoi />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Layout>

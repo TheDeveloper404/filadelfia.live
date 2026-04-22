@@ -263,7 +263,6 @@ export default function HomePage() {
             </blockquote>
           </div>
         </Container>
-
       </section>
     </div>
   );

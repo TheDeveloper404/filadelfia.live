@@ -86,6 +86,25 @@ export default function ContactPage() {
                   </div>
                 </div>
 
+                {/* Secretariat */}
+                <div>
+                  <p className="mb-3 text-base font-bold uppercase tracking-[0.3em] text-slate-700 text-center">Secretariat</p>
+                  <div className="divide-y divide-slate-100">
+                    <div className="flex items-center justify-between gap-4 py-4">
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Secretar</p>
+                        <p className="mt-1 text-base font-bold text-slate-900">Marco Chiș</p>
+                      </div>
+                      <a
+                        href="tel:+40769653161"
+                        className="shrink-0 rounded-full bg-secondary/10 border border-secondary/20 px-4 py-2 text-sm font-bold text-slate-800 transition hover:bg-secondary/20"
+                      >
+                        0769 653 161
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Social */}
                 <div>
                   <p className="mb-3 text-base font-bold uppercase tracking-[0.3em] text-slate-700 text-center">Urmărește-ne</p>

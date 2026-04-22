@@ -8,8 +8,8 @@ const navLinks = [
   { to: '/', label: 'Acasă' },
   { to: '/live', label: 'Live' },
   { to: '/despre-noi', label: 'Despre noi' },
-  { to: '/stiri', label: 'Știri' },
   { to: '/plan-citire', label: 'Plan Biblic' },
+  { to: '/stiri', label: 'Știri' },
   { to: '/contact', label: 'Contact' },
 ];
 

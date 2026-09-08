@@ -11,6 +11,11 @@ docs
 /CHANGELOG.md
 /BACKLOG.md
 
+# Instrucțiuni de proiect pentru agenți (local, nu în repo)
+/CONTEXT.md
+/CLAUDE.md
+/AGENTS.md
+
 # Environment files — never commit
 .env
 .env.local

@@ -3,6 +3,10 @@
 Regulile de proces generale (clasificare SMALL/NORMAL/CRITICAL, quality gates, mod de lucru cu
 userul) trăiesc în instrucțiunile globale. Acest fișier conține DOAR ce e specific acestui proiect.
 
+> **`CONTEXT.md`** (același director) conține domeniul: ce este (Church PWA pentru Biserica
+> Filadelfia Petroșani), stack-ul și istoricul infrastructurii. NU se încarcă automat — citește-l
+> când ai nevoie de detaliul respectiv. Aici rămân procedura de deploy, convențiile și testele.
+
 ## Convenții rapide
 
 Tipare mici, ca să nu mai fie nevoie de întrebări repetate pe lucruri banale. Secțiune nouă
@@ -67,19 +71,6 @@ separată `ssh -i ~/.ssh/id_ed25519_root_ovh ubuntu@57.131.141.84` pentru acelea
 deploy-ul obișnuit.
 
 Detalii complete în memoria de proiect (`project_deploy.md`) — de actualizat cu IP-ul/cheile noi.
-
-## Stack (actual, iulie 2026)
-
-- React 19 + TypeScript + Vite 5 + Tailwind + Radix UI (shadcn-style, `src/components/ui`)
-- Server API: Hono + `@hono/node-server`, bundle single-file cu esbuild (`server/index.ts` →
-  `api/*.ts` handlere)
-- SQLite (`node:sqlite`) pentru conținut editabil din `/admin`
-- Maileroo pentru formularul de contact (NU EmailJS, NU Firebase — proiectul a migrat de pe
-  Vercel/Firebase pe VPS + Node/SQLite)
-- PWA (`vite-plugin-pwa`)
-
-Vezi `README.md` pentru variabile de mediu server-side (`ADMIN_PIN`, `YOUTUBE_API_KEY`,
-`MAILEROO_*`, etc.) și structura completă a directoarelor.
 
 ## Teste
 

@@ -96,3 +96,5 @@ Build frontend (`npm run build` → `dist/`) și bundle server (`esbuild server/
 în `/var/www/filadelfia/`. nginx servește `dist/` static și face reverse-proxy `/api/*` către
 serverul Node (`127.0.0.1:3001`, pornit cu `pm2`, user dedicat non-root `filadelfia`). Headerele
 de securitate (CSP, HSTS etc.) sunt în vhost-ul nginx, nu în `vercel.json` (nu se mai folosește).
+
+<!-- test push/credential — 2026-09-08 -->
